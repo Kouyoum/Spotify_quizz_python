@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href='/static/style.css' />
+
+<div class="container">
+  <center>
+      <h1> <font color = #2975a7> Armand and Rodolphe's Python Project!  </font></h1>
+        <h2> Welcome to our quizz ! <br> </h2>
+        <p>
+        <h4> <br>
+          To start the tracks, <br><br> either push the space button of your computer, or click on the play button
+        </h4>
+        </p>
+        <br>
+        <form action="/question2">
+
+          <button type="submit" id = "search"> Click here to start the quizz </button>
+          <style media="screen">
+            #search {
+        width: 20em;  height: 2em;
+        }
+          </style>
+        </form>
+        <iframe src="https://open.spotify.com/embed/track/0bVtevEgtDIeRjCJbK3Lmv" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <br>
+        <br>
+
+      </center>
+</div>
+
+{% endblock content%}

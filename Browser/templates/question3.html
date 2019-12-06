@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}"> -->
+<div class="container">
+  <center>
+        <h1> Question 3 - Guess the Year </h1>
+        <br>
+          <h4> In which year was the album {{album}} from {{artist}} composed ?
+          </h4>  <br>
+
+        <form action="/question3" method="post">
+            <input type = "hidden" name="correct3" value="{{correct3}}">
+            <input type = "hidden" name="album" value="{{album}}">
+            <input type = "hidden" name="artist" value="{{artist}}">
+        {% for answer in answers %}
+            <br> <input type="radio" name="answer3" value= "{{answer}}"> {{answer}} <br>
+        {% endfor%}
+            <br>
+            <br>
+            <input type="submit" class= "btn-primary" value="submit">
+        </form>
+        <br>
+    </center>
+</div>
+
+{% endblock content%}

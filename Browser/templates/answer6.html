@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+        <h1> The most danceable song is {{correct6}}. </h1>
+        <br>
+        <p>You thought the most danceable song was {{answer6}}.</p>
+        {% if answer6 == correct6 %}
+        <p> <font color ="green"> You response was correct ! </font></p>
+        {% else %}
+        <p> <font color="red">  You were wrong :) </font></p>
+        {% endif %}
+        <br>
+        <br>
+        You have {{count}} question correct so far.
+        <br>
+        <br>
+        <!-- <iframe src="{{ link }}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
+        <br>
+        <form action="/end">
+
+          <button type="submit"> click to end the quizz </button>
+        </form>
+        <br>
+        <a href="/question6"> Back to Question 6</a>
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script>
+window.onSpotifyWebPlaybackSDKReady = () => {
+  // You can now initialize Spotify.Player and use the SDK
+};
+</script>
+</div>
+{% endblock content%}
