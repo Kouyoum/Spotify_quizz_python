@@ -2,10 +2,11 @@
 {% block content %}
 <link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}">
 <div class="container">
-        <h1> Question 6 - The most danceable </h1>
+        <h1> Question 6 - The most danceable </h1> <br>
 
           <h4>Spotify creates a song characteristic named danceability that quantifies the danceability of the song.
-          <br>Among your top tracks, what is the name of the most danceable ? </h4>  <br>
+          <br>
+          <br> <font color = #2975a7> Among your top tracks, what is the name of the most danceable ? </font></h4>  <br>
 
         <form action="/question6" method="post">
             <input type = "hidden" name="correct6" value="{{correct6}}">

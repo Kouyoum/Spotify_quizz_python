@@ -1,23 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
+  <center>
   <h1> End of the test </h1>
 
 
-  <h4>This is the end of the test! You responded {{ count }} questions correctly out of 5.
-  {% if count > 2 %}
-  <p> <font color ="green"> This is a good score ! Well done ! </font></p>
-  {% else %}
-  <p> <font color ="red"> We are sure you can do better ! Do you want to try again ? </font></p>
-  <form action="/question2">
+      <h4>This is the end of the test! You responded {{ count }} questions correctly out of 5.
+        <br>
+        <br>
+        {% if count > 2 %}
+        <p> <font color ="green"> This is a good score ! Well done ! </font></p>
+        {% else %}
+        <p> <font color ="red"> We are sure you can do better ! Do you want to try again ? </font></p>
+      </h4>
+        <form action="/question2">
 
-    <button type="submit"> Yes, let's give it another go </button>
-  </form>
-  </h4>
-  {% endif %}
+          <button type="submit"> Yes, let's give it another go !</button>
+          </form>
+          {% endif %}
 
-<br>
-<iframe src="https://open.spotify.com/embed/track/5AQpbyFoQmkOVwmlhKN4ii" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      <br>
+      <iframe src="https://open.spotify.com/embed/album/5FXIqS1XqbpfOKNoi5VUwS" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      </center>
 </div>
 
 {% endblock content%}

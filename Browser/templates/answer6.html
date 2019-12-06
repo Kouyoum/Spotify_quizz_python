@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
-        <h1> The most danceable song is {{correct6}}. </h1>
+        <h1> The most danceable song is <font color = #2975a7>{{correct6}}</font>. </h1>
         <br>
-        <p>You thought the most danceable song was {{answer6}}.</p>
+        <p>You thought the most danceable song was  {{answer6}}.</p>
         {% if answer6 == correct6 %}
         <p> <font color ="green"> You response was correct ! </font></p>
         {% else %}
@@ -21,12 +21,5 @@
           <button type="submit"> click to end the quizz </button>
         </form>
         <br>
-        <a href="/question6"> Back to Question 6</a>
-        <script src="https://sdk.scdn.co/spotify-player.js"></script>
-        <script>
-window.onSpotifyWebPlaybackSDKReady = () => {
-  // You can now initialize Spotify.Player and use the SDK
-};
-</script>
 </div>
 {% endblock content%}
