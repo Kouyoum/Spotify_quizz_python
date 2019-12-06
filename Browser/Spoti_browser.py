@@ -59,7 +59,6 @@ def create_navbar():
 @app.route("/")
 @app.route("/home")
 def home():
-    #return render_template("Flask.html")
     return render_template('home.html')
 
 
@@ -72,7 +71,9 @@ count = 0
 
 @app.route("/question1", methods = ['POST', 'GET'])
 def question1():
-    return 'Currently being created'
+    genre = Quizz_test.question1()
+    genres = ",".join(genre)
+    return render_template("question1.html", genres = genres)
 
 @app.route("/question2", methods = ['POST', 'GET'])
 def question2():

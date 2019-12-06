@@ -10,33 +10,26 @@ import spotipy.util as util
 import random
 import time as time
 
+# modules for string matching
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+
 
 toptrack = Backend.user_top_tracks()
 #summary = toptrack.loc[:,['Track', 'Artist', 'Explicit', 'Album Name', 'Album Year']]
 #print(summary)
-# def question1():
-# 	i = random.randint(0,len(toptrack['Track']))
-# 	song = toptrack['Track'][i]
-# 	uri = toptrack['URI'][i]
-# 	artist = toptrack["Artist"][i]
-# 	genres = Backend.artist_api([toptrack['Artist ID'][i]])['Genres']# need the album_feature as a list
-# 	print('--- Q U E S T I O N  1 ---')
-# 	print("For this first question, we will start with an easy one. Among your 50 top played tracks, we choose one at random.")
-# 	print("The random track is: ")
-# 	print('     ',song,' ,', artist)
-# 	print('What is one of the genres of this song ?')
-# 	sentence = "One of the genre of ", song, " is:"
-# 	u_input = input(str(sentence) )
-# 	if u_input in str(genres):
-# 		print('CORRECT')
-# 		print(genres)
-# 		# playback10s([uri])
-# 		return 1
-# 	else:
-# 		print("INCORRECT")
-# 		print(genres)
-# 		# playback10s([uri])
-# 		return 0
+
+def question1():
+	i = random.randint(0,len(toptrack['Track']))
+	song = toptrack['Track'][i]
+	uri = toptrack['URI'][i]
+	artist = toptrack["Artist"][i]
+	genres_object = Backend.artist_api([toptrack['Artist ID'][i]])['Genres']# need the album_feature as a list
+	genres = list(genres_object)
+	return genres
+
+genres = question1()
+print(genres)
 
 #question1()
 #
