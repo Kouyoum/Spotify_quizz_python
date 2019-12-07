@@ -6,15 +6,19 @@
 
           <h4> Spotify records the genre(s) each track belongs to: hip-hop, french rap, ...
           <br>
-          <br> <font color = #2975a7> Among your top tracks, {{ track }} was picked at random. What genre would you say {{ track }} corresponds to ? </font> </h4>
+          <br> Among your top tracks, the song <font color = #2975a7> {{ track }} </font> was picked at random. What genre would you say this track corresponds to ?  </h4>
           <br> <br>(hint: trying several options such as "option1 option2" may help you)
           <br> <br> The genres are {{ genres }}
+          {{ genre_cat }}
 
           <form action="/question1" method="post">
+            <input type = "hidden" name="correct1" value="{{correct1}}">
+            <input type = "hidden" name="link" value="{{link}}">
               <div class="form-group">
                 <input type="text" name="answer1">
               </div>
-              <input type="submit" class= "btn-primary" value="submit">
+
+            <input type="submit" class= "btn-primary" value="submit">
           </form>
         <br>
 </div>

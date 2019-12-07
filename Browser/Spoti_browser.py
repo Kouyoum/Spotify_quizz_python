@@ -6,6 +6,8 @@ import random as random
 import time as time
 import sys
 import os
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
 # IMPORT QUESTIONS
 # from Interaction_API import Quizz
@@ -71,9 +73,25 @@ count = 0
 
 @app.route("/question1", methods = ['POST', 'GET'])
 def question1():
-    genre = Quizz_test.question1()
-    genres = ",".join(genre)
-    return render_template("question1.html", genres = genres)
+    #genre = Quizz_test.question1()
+    answers = Backend.get_genres()
+    #genre_cat = HTML(answers.to_html(classes = 'table table-striped'))
+    correct1, id, track = Quizz_test.question1_a()
+    link = "https://open.spotify.com/embed/track/" + id
+    global count
+    count = 0
+    if request.method == 'POST':
+        answer1 = request.form['answer1']
+        correct1 = request.form['correct1']
+        link = request.form['link']
+        ratio = Quizz_test.question1_b(answer1, correct1)
+
+        return render_template("answer1.html", correct1 = correct1, answer1 = answer1, count = count, link = link, ratio = ratio)
+
+    return render_template("question1.html", track = track, link = link, correct1 = correct1)
+
+
+
 
 @app.route("/question2", methods = ['POST', 'GET'])
 def question2():
@@ -81,7 +99,6 @@ def question2():
 
     link = "https://open.spotify.com/embed/track/" + id
     global count
-    count = 0
     if request.method == 'POST':
         answer2 = request.form['answer2']
         correct2 = request.form['correct2']
@@ -89,7 +106,6 @@ def question2():
         # modify the count variable
         if answer2 == correct2:
             count += 1
-
 
         return render_template("answer2.html", correct2 = correct2, answer2 = answer2, count = count, link = link)
 

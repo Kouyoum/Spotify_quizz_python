@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+  <center>
+        <h1> You could have answered one of the following options <font color = #2975a7> {{correct1}} </font>. </h1>
+        <br>
+        <p>You thought the genre to be  {{answer1}}.</p>
+
+        {{ ratio }}
+        {% if answer1 == correct1 %}
+        <p> <font color ="green"> You response was correct ! </font></p>
+        {% else %}
+        <p> <font color="red">  You were wrong :) </font></p>
+        {% endif %}
+
+        <br>
+        <iframe src="{{ link }}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <br>
+        <br>
+        <form action="/question1">
+
+          <button type="submit"> Onto the next question </button>
+        </form>
+        <br>
+  </center>
+</div>
+{% endblock content%}

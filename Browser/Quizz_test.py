@@ -1,6 +1,7 @@
 # QUIZZ
 # Import of other project files
 import Backend
+import authorization as aut
 
 
 # Other Imports
@@ -16,20 +17,46 @@ from fuzzywuzzy import process
 
 
 toptrack = Backend.user_top_tracks()
+
 #summary = toptrack.loc[:,['Track', 'Artist', 'Explicit', 'Album Name', 'Album Year']]
 #print(summary)
 
-def question1():
+# Question 1_a returns the correct genres to the question
+def question1_a():
 	i = random.randint(0,len(toptrack['Track']))
-	song = toptrack['Track'][i]
+	track = toptrack['Track'][i]
 	uri = toptrack['URI'][i]
+	id = toptrack['Track ID'][i]
 	artist = toptrack["Artist"][i]
-	genres_object = Backend.artist_api([toptrack['Artist ID'][i]])['Genres']# need the album_feature as a list
-	genres = list(genres_object)
-	return genres
+	genres = Backend.artist_api([toptrack['Artist ID'][i]])['Genres']# need the album_feature as a list
+	#genres = genres_series.tolist()
 
-genres = question1()
-print(genres)
+	return genres[0], id, track
+
+test1, test2, test3 = question1_a()
+print("\n \n", test1, test2, test3)
+print(type(test1))
+
+
+# Question 1_b returns the ratio of similarity between user input and response
+answers1 = ['blues rock', 'rock']
+
+def question1_b(answers, correct):
+	ratio = []
+	for option in correct:
+		grade = fuzz.partial_ratio(option, answers)
+		ratio.append(grade)
+		# if grade > 80:
+		# 	return "correct"
+	return ratio
+
+ratio = question1_b(answers1, test1)
+print(ratio)
+
+#genres, ratio = question1()
+#print(genres, ratio)
+
+
 
 #question1()
 #

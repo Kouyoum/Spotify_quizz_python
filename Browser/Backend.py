@@ -82,6 +82,21 @@ toptrack = user_top_tracks()
 #print(toptrack)
 
 
+"""Function returning a dataframe of the available genres in spotify"""
+def get_genres():
+    results = sp.recommendation_genre_seeds()
+    result = results['genres']
+    # # list creation to unpack the json file
+    # genres = []
+    # for item in result["genres"]:
+    #     genres.append(item['genres'])
+    Genres = pd.DataFrame()
+    Genres['genres categories'] = result
+    return Genres
+
+# genres = get_genres()
+# print(genres)
+
 #USER TOP PLAYED ARTISTS
 # Function returning dataframe of user's top artists
 def topartist():
