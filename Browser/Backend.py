@@ -256,10 +256,10 @@ def artist_api(artists):
 """ THIS FUNCTION CREATES A PLAYLIST OF THE USER's 50 MOST HEARD TRACKS"""
 def create_playlist():
 	# This funtion is used to create a playlist containing the top 50 tracks of the user.
-	print("DO YOU WANT TO CREATE A PLAYLIST OF YOUR TOP 50 TRACKS ?")
-	print("y/n ?")
-	#u_input = input()
-	#if u_input == "y":
+	# print("DO YOU WANT TO CREATE A PLAYLIST OF YOUR TOP 50 TRACKS ?")
+	# print("y/n ?")
+	# #u_input = input()
+	# #if u_input == "y":
 	sp.user_playlist_create(username, name='TOP 50 TRACKS', public=True, description='This playlist was created thanks to a Python Project')
 	sp.user_playlist_add_tracks(username, playlist_id=playlist()['Playlist ID'][0], tracks=toptrack['Track ID'], position=None)
 
@@ -267,18 +267,20 @@ def create_playlist():
 
 """
 ----- PLAYBACK -----
+Those functions were not used in the end, as a an easier solution was found
+
 This is used to play / pause tracks on your current device during the quizz
 """
-# def playback10s(track_uri):
-# 	# This function is used to play the first 10 secondes of the correct answer of the questions of the quiz
-# 	devices = sp.devices()
-# 	for i in devices['devices']:
-# 		device_id = i['id']
-# 		break
-# 	sp.start_playback(device_id=device_id  ,uris=track_uri)
-# 	print('...PLAYING SONG FOR 10 SECONDES ON DEVICE')
-# 	time.sleep(10)
-# 	sp.pause_playback()
+def playback10s(track_uri):
+	# This function is used to play the first 10 secondes of the correct answer of the questions of the quiz
+	devices = sp.devices()
+	for i in devices['devices']:
+		device_id = i['id']
+		break
+	sp.start_playback(device_id=device_id  ,uris=track_uri)
+	print('...PLAYING SONG FOR 10 SECONDES ON DEVICE')
+	time.sleep(10)
+	sp.pause_playback()
 
 def playback10s():
 	# This function is used to play the first 10 secondes of the correct answer of the questions of the quiz
@@ -291,8 +293,3 @@ def playback10s():
 # dic_device = device['devices'][0]
 # id = device1['id']
 # print(id)
-
-
-# Things to EXECUTE
-# if __name__ == "__main__":
-#     print("Backend imported")

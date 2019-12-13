@@ -29,6 +29,7 @@ import authorization
 
 #AUTHORIZATION FLOW WHICH WILL DISAPPEAR, REPLACED BY AUTH FUNCTION
 sp, token = authorization.authorization()
+username = Backend.find_username_user()
 #print(token)
 #print(sp)
 
@@ -57,7 +58,7 @@ def create_navbar():
                     summary_view)
 
 
-# INTRODUCTION # MULTIPLE ROUTES HANDLED BY THE SAME FUNCTION
+"""Main page, start of the quizz"""
 @app.route("/")
 @app.route("/home")
 def home():
@@ -155,12 +156,16 @@ def end():
 @app.route("/summary", methods = ['POST', 'GET'])
 def summary():
     user_tracks = Backend.user_top_tracks()
+    # here, we keep the most important attributes
     summary = user_tracks.loc[:,['Track', 'Artist', 'Explicit', 'Album Name', 'Album Year']]
+    # Pandas Dataframe transformed to fit the HTML format
     html_user_tracks = HTML(summary.to_html(classes = 'table table-striped'))
+
+    #sp.user_playlist_create(username, name='TOP 50 TRACKS', public = True)
+    #sp.user_playlist_add_tracks(username, playlist_id= Backend.playlist()['Playlist ID'][0], tracks= user_tracks['Track ID'], position=None)
     return render_template("summary.html", html_user_tracks = html_user_tracks)
 
 # https://medium.com/fintechexplained/flask-host-your-python-machine-learning-model-on-web-b598151886d
-
 
 
 
