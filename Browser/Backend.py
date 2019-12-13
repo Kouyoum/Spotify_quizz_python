@@ -30,7 +30,7 @@ username = find_username_user()
 #USER TOP PLAYED TRACKS
 # function returning dataframe
 def user_top_tracks():
-    timespan = 'long_term'  #short = 4 weeks, medium = 6 months, long = several years
+    timespan = 'short_term'  #short = 4 weeks, medium = 6 months, long = several years
     limit = 50              #Max 50
     result = sp.current_user_top_tracks(limit, time_range= timespan)
 
