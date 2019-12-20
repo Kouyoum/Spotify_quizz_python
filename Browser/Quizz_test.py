@@ -99,9 +99,6 @@ def question2():
 	sample_names = list(sample_songs['Track'])
 
 	# list of tracks with the artists names
-	for i in range(len(sample_names)):
-		sample_names[i] += " by " + sample_artists[i]
-
 
 	return sample_names, sample_artists, most_danceable, id_mostd
 

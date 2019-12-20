@@ -197,22 +197,10 @@ def summary():
     #sp.user_playlist_add_tracks(username, playlist_id= Backend.playlist()['Playlist ID'][0], tracks= user_tracks['Track ID'], position=None)
     return render_template("summary.html", html_user_tracks = html_user_tracks)
 
-# https://medium.com/fintechexplained/flask-host-your-python-machine-learning-model-on-web-b598151886d
-
-
-
-# ROUTES SPOTIFY
-# @app.route("/spotify")
-# def spoti_access():
-#     genres = sp.recommendation_genre_seeds()
-#     rand = random.sample(genres["genres"],4)
-#
-#     # genre_test = genres['genres'][i-1]
-#     return str(rand)
-
-# @app.route("/test")
-# def test():
-#     return test(inform_me())
+@app.route('/playlist', methods = ['POST', 'GET'])
+def playlist():
+    Backend.create_playlist()
+    return render_template("playlist.html")
 
 # GIVE OUT INFORMATION ABOUT THE BROWSER, QUIZZ
 @app.route("/about")

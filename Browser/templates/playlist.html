@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}">
+<div class="container">
+  <center>
+      <h1>
+          <font color = green> Well done !
+            <br>
+            <br>
+            You just created a playlist of your most heard tracks.
+            <br>
+            If you go on your account, it should look like in the picture below.
+            <br>
+            <br>
+            Enjoy :)
+            <br>
+            <img src="Spotify_playlist_added.png" alt="Adding the playlist 'Top 50 tracks'">
+  </center>
+</div>
+{% endblock content %}

@@ -37,7 +37,7 @@ username = find_username_user()
 
 
 def user_top_tracks():
-    timespan = 'short_term'  # short = 4 weeks, medium = 6 months, long = several years
+    timespan = 'long_term'  # short = 4 weeks, medium = 6 months, long = several years
     limit = 50  # Max 50
     result = sp.current_user_top_tracks(limit, time_range=timespan)
 
@@ -285,16 +285,11 @@ def artist_api(artists):
 
 def create_playlist():
     # This funtion is used to create a playlist containing the top 50 tracks of the user.
-    # print("DO YOU WANT TO CREATE A PLAYLIST OF YOUR TOP 50 TRACKS ?")
-    # print("y/n ?")
-    # #u_input = input()
-    # #if u_input == "y":
-    sp.user_playlist_create(username, name='TOP 50 TRACKS', public=True,
-                            description='This playlist was created thanks to a Python Project')
-    sp.user_playlist_add_tracks(username, playlist_id=playlist(
-    )['Playlist ID'][0], tracks=toptrack['Track ID'], position=None)
 
-    return
+    sp.user_playlist_create(username, name='TOP 50 TRACKS', public=True)
+    sp.user_playlist_add_tracks(username, playlist_id=playlist()['Playlist ID'][0], tracks=toptrack['Track ID'], position=None)
+
+    return "Done"
 
 
 """

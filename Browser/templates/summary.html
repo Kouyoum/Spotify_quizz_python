@@ -1,16 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
-<!-- <link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}"> -->
+<link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}">
 <div class="container">
 
   <body>
-      <h1> <font color = "blue"> Here is a summary table of your most heard tracks for the past month  </font></h1>
+      <h1> <font color = #2975a7> Here is a summary table of your most heard tracks for the past month  </font></h1>
       <br>
       <br>
-      
+
       <form action="/question1">
 
         <button type="submit" id = "search"> Click here to start the quizz </button>
+      </form>
+
+      <form action="/playlist">
+
+        <button type="submit" id = "search"> Click here to create a playlist on spotify of those tracks </button>
       </form>
 
 
