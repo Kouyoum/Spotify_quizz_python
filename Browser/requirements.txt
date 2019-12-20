@@ -1,0 +1,7 @@
+pandas==0.25.1
+Flask_Bootstrap==3.3.7.1
+requests==2.13.0
+spotipy==2.4.4
+Flask==1.1.1
+flask_nav==0.6
+ipython==7.10.1
