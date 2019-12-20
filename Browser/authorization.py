@@ -30,12 +30,12 @@ def authorization():
     secret = "c3922e0fbd1b4c57ba9f0c32366a7fe8"
     # cid = " 42d0aa9d98ef4d4ba6524cea55bbca52"
     # secret = "3c08275254aa4381be5198e756755211"
-    username = "11100731824"
+    username = "11670183"
 
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     scope = 'user-library-read playlist-read-private playlist-modify-private playlist-modify-public user-top-read user-read-recently-played user-read-playback-state user-read-playback-state user-read-currently-playing user-modify-playback-state streaming app-remote-control user-read-email user-read-private'
-
+    redirect_uri = "http://localhost:8888"
     print("")
     print("")
     print("WELCOME TO OUR SPOTIFY QUIZ APP")
@@ -43,7 +43,7 @@ def authorization():
     print("Once you login and accept the permissions, the browser will redirect you to a URL that will probably create a (not accessible) error. This is normal, you simply need to copy the link in the URL bar and past it in this console.")
         # time.sleep(10)
 
-    token = util.prompt_for_user_token(username, scope, cid, secret, redirect_uri="http://127.0.0.1:5090/")
+    token = util.prompt_for_user_token(username, scope, cid, secret, redirect_uri)
     if token:
         sp = spotipy.Spotify(auth=token)
         # print('Spotify Token:  ', token)

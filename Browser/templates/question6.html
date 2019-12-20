@@ -10,8 +10,9 @@
 
         <form action="/question6" method="post">
             <input type = "hidden" name="correct6" value="{{correct6}}">
+            <input type = "hidden" name="link" value="{{link}}">
         {% for answer in answers %}
-            <br> <input type="radio" name="answer6" value= "{{answer}}"> {{answer}} <br>
+            <br> <input type="radio" name="answer6" value= "{{answer}}" required> {{answer}} <br>
         {% endfor%}
             <br>
             <br>

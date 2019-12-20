@@ -22,16 +22,14 @@ For detailed information, refer to the DB guide (schema, primary key)
 """
 
 # PERSONAL DATA
-"""This function enables to record the user's spotify idea"""
-
-
 def find_username_user():
+    """This function enables to record the user's spotify idea"""
     result = sp.me()
     username = result['id']
     return username
 
-
 username = find_username_user()
+
 # print(username)
 
 # USER TOP PLAYED TRACKS

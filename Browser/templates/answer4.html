@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}">
+<div class="container">
+  <center>
+      <h1>
+          {% if answer4 == correct4 %}
+          <font color = green> You were right ! </font>
+
+          {% else %}
+
+          <font color = red> You were wrong. </font>
+          {% endif %}
+      </h1>
+
+      <u> Did you know ?</u>
+      <p>
+        You can choose to allow or prevent explicit content playing on your account. <br>
+        If you manage a Premium Family plan, you can also allow or prevent explicit content playing for other members of the plan.<br>
+        You can learn more about explicit-content on spotify by visiting the following link:
+
+        <a href="https://support.spotify.com/us/using_spotify/system_settings/explicit-content/"> Explicit Content Spotify</a>
+      </p>
+        <br>
+
+          <br>
+            <form action="/question6">
+
+              <button type="submit"> Onto the next question </button>
+            </form>
+  </center>
+</div>
+{% endblock content %}

@@ -2,21 +2,22 @@
 {% block content %}
 <!-- <link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}"> -->
 <div class="container">
-
         <h1> Question 2 - The most popular </h1>
         <br>
-          <h4>Spotify's algorithm rates each track's popularity on a scale of 0 to 100.
-          <br>
-          <br>The grade depends on the total number of plays the track has had and on how recent those plays are.
-          <br>
-          <br>
-          <br><font color = #2975a7>Among those 4 songs, which one do you think is the most popular on Spotify ? </font></h4>
+        <h4>Spotify's algorithm rates each track's popularity on a scale of 0 to 100.
+            <br>
+            The grade depends on the total number of plays the track has had and on how recent those plays are.
+            <br>
+            <br>
+            <br>
+            <font color = #2975a7>Among those 4 songs, which one do you think is the most popular on Spotify ? </font>
+        </h4>
 
         <form action="/question2" method="post">
             <input type = "hidden" name="correct2" value="{{correct2}}">
             <input type = "hidden" name="link" value="{{link}}">
         {% for answer in answers %}
-            <br> <input type="radio" name="answer2" value= "{{answer}}"> {{answer}} {{artist}}<br>
+            <br> <input type="radio" name="answer2" value= "{{answer}}" required> {{answer}}<br>
         {% endfor%}
             <br>
 
@@ -25,5 +26,4 @@
         </form>
         <br>
 </div>
-
 {% endblock content%}

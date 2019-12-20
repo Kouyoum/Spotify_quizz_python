@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}"> -->
+<div class="container">
+    <center>
+        <h1> Question 4 - Explicit or not explicit, that is the question ... </h1>
+        <br>
+          <h4>
+              Guess how many of your most heard tracks contain explicit content / language.
+          </h4>
+          <br>
+
+        <form action="/question4" method="post">
+            <input type = "hidden" name="correct4" value="{{correct4}}">
+
+            {% for answer in answers %}
+                <br> <input type="radio" name="answer4" value= "{{answer}}" required> {{answer}} <br>
+            {% endfor%}
+
+            <br>
+            <br>
+
+            <input type="submit" class= "btn-primary" value="submit">
+        </form>
+        <br>
+    </center>
+</div>
+
+{% endblock content%}

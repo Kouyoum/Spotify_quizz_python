@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
+  <center>
         <h1> The album {{album}} by {{artist}} was composed in <font color = #2975a7> {{correct3}}</font>. </h1>
         <br>
+        <h5>
         <p>You thought that it was composed in {{answer3}}.</p>
         <br>
         {% if answer3 == correct3 %}
@@ -10,17 +12,17 @@
         {% else %}
         <p> <font color="red">  You were wrong :) </font></p>
         {% endif %}
+        </h5>
         <br>
-        You have {{count}} question correct so far.
+        <iframe src="{{ link }}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <br>
         <br>
-          <form action="/question6">
+          <form action="/question4">
 
             <button type="submit"> Onto the next question </button>
           </form>
         <br>
         <br>
-        <a href="/question3"> Back to Question 3</a>
-
+  </center>
 </div>
 {% endblock content%}
