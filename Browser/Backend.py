@@ -25,7 +25,11 @@ For detailed information, refer to the DB guide (schema, primary key)
 
 
 def find_username_user():
-    """This function enables to record the user's spotify idea"""
+    """  RECORD USER ID
+
+    Returns:
+
+    username: user's spotify user id """
     result = sp.me()
     username = result['id']
     return username
@@ -40,6 +44,17 @@ username = find_username_user()
 
 
 def user_top_tracks():
+    """
+        USER TOP 50 TRACKS ON SPOTIFY
+
+    Returns:
+
+    toptrack: pandas dataframe of the user's top 50 tracks.
+
+    Includes the following attributes:track id, track name, artist, artist id,
+    popularity, explicit, album_name, album_year, uri
+
+    """
     timespan = 'long_term'  # short = 4 weeks, medium = 6 months, long = several years
     limit = 50  # Max 50
     result = sp.current_user_top_tracks(limit, time_range=timespan)
@@ -68,11 +83,6 @@ def user_top_tracks():
             artist_id.append(art['id'])
             break
 
-    # print('')
-    # print('WE RETREIVED DATA FOR YOUR TOP  ' ,len(track_name), ' TRACKS')
-    # print('')
-    # print('')
-
     # create dataframe
     toptrack = pd.DataFrame()
     toptrack['Track ID'] = track_id
@@ -93,10 +103,13 @@ toptrack = user_top_tracks()
 # print(toptrack)
 
 
-"""Function returning a dataframe of the available genres in spotify"""
-
-
 def get_genres():
+    """ AVAILABLE GENRES ON SPOTIFY
+
+    Returns:
+
+    Genres: Dataframe of the available genres on spotify
+    """
     results = sp.recommendation_genre_seeds()
     result = results['genres']
     # # list creation to unpack the json file
@@ -107,14 +120,13 @@ def get_genres():
     Genres['genres categories'] = result
     return Genres
 
-# genres = get_genres()
-# print(genres)
-
-# USER TOP PLAYED ARTISTS
-# Function returning dataframe of user's top artists
-
 
 def topartist():
+    """ USER TOP PLAYED ARTISTS
+
+    Returns:
+
+    Dataframe of user's most heard artists, and attributes: popularity, name, id """
     timespan = 'long_term'  # short = 4 weeks, medium = 6 months, long = several years
     limit = 50  # Max 50
     result = sp.current_user_top_artists(limit, time_range=timespan)
@@ -138,13 +150,15 @@ def topartist():
 
 """ EXECUTE THE FUNCTION TO OBTAIN THE 50 ARTISTS & INFORMATION"""
 topartist = topartist()
-# print(topartist)
-
-# #USER PLAYLIST
-""" THIS FUNCTION RETURNS A DATAFRAME OF ALL THE USER'S PLAYLISTS"""
 
 
 def playlist():
+    """ USER PLAYLIST
+
+    Returns:
+
+    Dataframe of all the user's playlists and information.
+    """
     result = sp.current_user_playlists()
 
     playlist_id = []
@@ -174,36 +188,27 @@ def playlist():
     playlists["Is Yours"] = is_yours
     return playlists
 
-# playlists.to_csv('playlists.csv',index=False)
-#playlists = playlist()
-# print(playlists)
-
-
-#
-""" THIS FUNCTION CREATES A CSV FILE OF THE USER's TOP ARTIST"""
-
 
 def export_csv():
-    print("DO YOU WANT TO EXPORT YOUR TOP 50 TRACKS AND TOP 50 ARTISTS TO A CSV TABLE ?")
-    print("y/n ?")
-    u_input = input()
-    if u_input == "y":
-        toptrack.to_csv('top_track.csv', index=False)
-        print('SUCCESFULLY EXPORTED top_track.csv')
-        topartist.to_csv('top_artist.csv', index=False)
-        print('SUCCESFULLY EXPORTED top_artist.csv')
-        return
-    return
+    """ CSV FILE CREATED OF THE USER's TOP ARTIST"""
+    toptrack.to_csv('top_track.csv', index=False)
+    topartist.to_csv('top_artist.csv', index=False)
+    return "Done"
 
 
-"""
-# # ----- API CALLS -----
-# # This section contains functions to retrieve data from spotify.
-# # """
-# #
 
+### API CALLS - THE FUNCTION BELOW QUERY SPOTIFY API DO OBTAIN ADDITIONAL
+### INFORMATION ABOUT THE TRACKS, ALBUMS, ARTISTS, ...
 
 def tracks(track_id):
+     """ FIND TRACK NAME FROM ITS ID
+
+     Args:
+     track_id: string variable, id of a spotify track
+
+     Returns:
+     track: name of the track corresponding to the id
+     """
     result = sp.tracks(track_id)
 
     track_name = []
@@ -219,10 +224,21 @@ def tracks(track_id):
     return track
 
 
-""" THIS FUNCTION RETURNS THE CHARACTERISTICS (LIKE ACOUSTIC) OF A SONG"""
-
 
 def audio_features(song_id):
+    """ FIND THE CHARACTERISTICS (LIKE ACOUSTIC) OF A SONG
+
+    Args:
+
+    song_id: id of the track we are interested in
+
+    Return:
+
+    song_characteristic: Pandas dataframe containing information about the track
+
+    such as: danceability, loudness, liveness, ..."""
+
+    # Function from the spotipy package, returning a json
     result = sp.audio_features(song_id)
 
     track_id = []
@@ -254,12 +270,21 @@ def audio_features(song_id):
     return song_characteristic
 
 
-""" THIS FUNCTION RETURNS A DataFrame WITH ARTIST INFO, AMONGST OTHERS, AN ARTIST'S GENRES """
-""" Args: Function takes a dataframe, called artists, as argument.
-    artists correspond to potential artists to the question. """
 
 
 def artist_api(artists):
+    """ GET ARTIST INFO, GENRES, ...
+
+        Args:
+
+        artists: a list of artist IDs, URIs or URLs
+
+        Returns:
+
+        artists: pandas dataframe of artist(s) with information.
+        Attributes include followers, popularity, ...
+
+        """
     result = sp.artists(artists)
     artist_id = []
     name = []
@@ -287,13 +312,13 @@ def artist_api(artists):
 
 
 def create_playlist():
-    # This funtion is used to create a playlist containing the top 50 tracks of the user.
-
+    """ This funtion is used to create a playlist containing the top 50 tracks of the user. """
     sp.user_playlist_create(username, name='TOP 50 TRACKS', public=True)
     sp.user_playlist_add_tracks(username, playlist_id=playlist(
     )['Playlist ID'][0], tracks=toptrack['Track ID'], position=None)
 
     return "Done"
+
 
 
 """
@@ -302,9 +327,8 @@ Those functions were not used in the end, as a an easier solution was found
 
 This is used to play / pause tracks on your current device during the quizz
 """
-
-
 def playback10s(track_uri):
+
     # This function is used to play the first 10 secondes of the correct answer of the questions of the quiz
     devices = sp.devices()
     for i in devices['devices']:

@@ -222,6 +222,14 @@ def playlist():
     return render_template("playlist.html")
 
 
+@app.route('/csv', methods = ['POST', 'GET'])
+def csv():
+    """ CSV DOWNLOAD OF USER'S MOST HEARD TRACKS
+
+    Returns:
+    Creates a CSV of the user's most heard tracks when visited """
+    Backend.export_csv()
+    return render_template("csv.html")
 
 
 @app.route("/about")
@@ -238,5 +246,5 @@ def about():
 
 
 if __name__ == "__main__":
-    Timer(1, open_browser).start();
+    #Timer(1, open_browser).start();
     app.run(port = 5090, debug=True)

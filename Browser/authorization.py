@@ -23,9 +23,20 @@ import time as time
 # username = obtain_id()
 
 
-"""FUNCTION ALLOWING THE AUTHORIZATION AND ACCESS TOKEN TO USER'S INFORMATION"""
-
 def authorization():
+    """FUNCTION ALLOWING THE AUTHORIZATION AND ACCESS TOKEN TO USER'S INFORMATION
+
+        Prints:
+        Instruction to be followed on the terminal, in order to complete
+        the authorization flow successfully. 
+
+        Returns:
+
+        sp: spotipy object enabling multiple method CALLS
+
+        token: authorization token, used for queries necessitating user's consent.
+        It is used on several method calls throughout our quizz"""
+
     cid ="11e754c7548240e7a02e1b59ec07b2f9"
     secret = "c3922e0fbd1b4c57ba9f0c32366a7fe8"
     # cid = " 42d0aa9d98ef4d4ba6524cea55bbca52"
