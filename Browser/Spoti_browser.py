@@ -81,10 +81,10 @@ count = 0
 
 @app.route("/question1", methods = ['POST', 'GET'])
 def question1():
-    #genre = Quizz_test.question1()
+    #genre = Quizz.question1()
     # answers = Backend.get_genres()
     # #genre_cat = HTML(answers.to_html(classes = 'table table-striped'))
-    correct1, id, track, artist = Quizz_test.question1_a()
+    correct1, id, track, artist = Quizz.question1_a()
     link = "https://open.spotify.com/embed/track/" + id
     global count
     count = 0
@@ -99,7 +99,7 @@ def question1():
         if answer1.lower() in str(correct):
             count += 1
 
-        # ratio = Quizz_test.question1_b(answer1, correct1)
+        # ratio = Quizz.question1_b(answer1, correct1)
 
         return render_template("answer1.html", correct1 = correct1, answer1 = answer1, count = count, link = link)
 
@@ -110,7 +110,7 @@ def question1():
 
 @app.route("/question2", methods = ['POST', 'GET'])
 def question2():
-    answers, artists, correct2, id = Quizz_test.question2()
+    answers, artists, correct2, id = Quizz.question2()
 
     link = "https://open.spotify.com/embed/track/" + id
     global count
@@ -129,7 +129,7 @@ def question2():
 
 @app.route("/question3", methods = ['POST', 'GET'])
 def question3():
-    album, artist, answers, correct3, id = Quizz_test.question3()
+    album, artist, answers, correct3, id = Quizz.question3()
 
     link = "https://open.spotify.com/embed/track/" + id
     global count
@@ -153,7 +153,7 @@ def question4():
     """
     Question on explicit content
     """
-    correct4, answers = Quizz_test.question4()
+    correct4, answers = Quizz.question4()
     global count
 
     if request.method == 'POST':
@@ -171,7 +171,7 @@ def question4():
 
 @app.route("/question6", methods = ['POST', 'GET'])
 def question6():
-    answers, correct6, id = Quizz_test.question6()
+    answers, correct6, id = Quizz.question6()
     link = "https://open.spotify.com/embed/track/" + id
     global count
 
