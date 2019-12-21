@@ -22,11 +22,14 @@ For detailed information, refer to the DB guide (schema, primary key)
 """
 
 # PERSONAL DATA
+
+
 def find_username_user():
     """This function enables to record the user's spotify idea"""
     result = sp.me()
     username = result['id']
     return username
+
 
 username = find_username_user()
 
@@ -287,7 +290,8 @@ def create_playlist():
     # This funtion is used to create a playlist containing the top 50 tracks of the user.
 
     sp.user_playlist_create(username, name='TOP 50 TRACKS', public=True)
-    sp.user_playlist_add_tracks(username, playlist_id=playlist()['Playlist ID'][0], tracks=toptrack['Track ID'], position=None)
+    sp.user_playlist_add_tracks(username, playlist_id=playlist(
+    )['Playlist ID'][0], tracks=toptrack['Track ID'], position=None)
 
     return "Done"
 

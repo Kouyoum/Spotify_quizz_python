@@ -3,7 +3,8 @@ body {
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444;
-  background-image: url(../templates/concert.jpg);
+  background-image: url("concert.jpg") !important;
+  background-color: rgb(158, 188, 236);
 }
 
 .container {
@@ -12,15 +13,11 @@ body {
 }
 
 .navbar{
-  background-color: #69899f !important;
+  background-color: #cce6ff !important;
 
-  border-color: #425766 !important;
+  border-color: #cce6ff !important;
 }
 
-
-#imageonly{
-  background-image: url(../templates/concert.jpg);
-}
 
 .navbar-default{
 

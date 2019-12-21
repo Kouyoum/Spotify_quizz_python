@@ -1,15 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
-<link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}">
 <div class="container">
   <center>
       <h1>
           {% if answer4 == correct4 %}
-          <font color = green> You were right ! </font>
+          <font color = green> You were right !  <br> You do have {{correct4}}
+          tracks that are rated explicit among your 50 most heard songs.  </font>
 
           {% else %}
 
-          <font color = red> You were wrong. </font>
+          <font color = red> You were wrong.You actually have {{correct4}}
+          tracks that are rated explicit among your 50 most heard songs. <br>
+          Are you surprised ?</font>
           {% endif %}
       </h1>
 

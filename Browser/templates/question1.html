@@ -1,21 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
-<link rel="stylesheet" href= "{{ url_for('static', filename = 'style.css') }}">
 <div class="container">
         <h1> Question 1 - Guess the genre ... </h1> <br>
 
           <h4> Spotify records the genre(s) each track belongs to: hip-hop, french rap, ...
           <br>
           <br> Among your top tracks, the song <font color = #2975a7> {{ track }} by {{ artist }}</font> was picked at random. What genre would you say this track corresponds to ?  </h4>
-          <br> <br>(Important: you are aloud 3 guesses which you must separate with a comma - e.g. french rap, gangsta rap, hip hop)
+          <br> 
           <br> <br> The genres are {{ genres }}
           {{ genre_cat }}
 
           <form action="/question1" method="post">
             <input type = "hidden" name="correct1" value="{{correct1}}">
             <input type = "hidden" name="link" value="{{link}}">
+
               <div class="form-group">
-                <input type="text" name="answer1">
+                <input type="text" name="answer1" required>
               </div>
 
             <input type="submit" class= "btn-primary" value="submit">

@@ -30,26 +30,27 @@ import authorization
 # secret = "c3922e0fbd1b4c57ba9f0c32366a7fe8"
 # username = "11100731824"
 
-#AUTHORIZATION FLOW WHICH WILL DISAPPEAR, REPLACED BY AUTH FUNCTION
+#AUTHORIZATION FLOW
 sp, token = authorization.authorization()
 username = Backend.find_username_user()
-#print(token)
-#print(sp)
 
 
 
-""" STRART OF THE APP"""
+
+""" START OF THE APP"""
 app = Flask("Flask")
 
 # For the navigation bar and other styling purposes
 Bootstrap(app)
 nav = Nav(app)
 
-# sp, token = authorization.authorization()
 
-""" ROUTES"""
+""" DIFFERENT ROUTES"""
+
+
 @nav.navigation('mysite_navbar')
 def create_navbar():
+    """ Creation of the navigation bar, using the Navbar package"""
     home_view = View('Home', 'home')
     about_view = View('About our Project', 'about')
     summary_view = View('Summary', 'summary')
@@ -61,7 +62,6 @@ def create_navbar():
                     summary_view)
 
 
-
 """Main page, start of the quizz"""
 @app.route("/")
 @app.route("/home")
@@ -71,9 +71,14 @@ def home():
 
 def open_browser():
     """
+    Function that automatically opens the flask web page on the user's default
+    web browser (e.g. google chrome)
     """
     webbrowser.open_new('http://127.0.0.1:5090/')
 
+""" Count variable set to 0
+
+    Variable counts the number of correct responses during the quizz"""
 count = 0
 
 @app.route("/question1", methods = ['POST', 'GET'])
@@ -85,14 +90,20 @@ def question1():
     link = "https://open.spotify.com/embed/track/" + id
     global count
     count = 0
+
     if request.method == 'POST':
         answer1 = request.form['answer1']
         correct1 = request.form['correct1']
         link = request.form['link']
 
-        ratio = Quizz_test.question1_b(answer1, correct1)
+        correct = list(correct1)
 
-        return render_template("answer1.html", correct1 = correct1, answer1 = answer1, count = count, link = link, ratio = ratio)
+        if answer1.lower() in str(correct):
+            count += 1
+
+        # ratio = Quizz_test.question1_b(answer1, correct1)
+
+        return render_template("answer1.html", correct1 = correct1, answer1 = answer1, count = count, link = link)
 
     return render_template("question1.html", track = track, artist = artist, link = link, correct1 = correct1)
 
@@ -197,18 +208,34 @@ def summary():
     #sp.user_playlist_add_tracks(username, playlist_id= Backend.playlist()['Playlist ID'][0], tracks= user_tracks['Track ID'], position=None)
     return render_template("summary.html", html_user_tracks = html_user_tracks)
 
+
+
+
 @app.route('/playlist', methods = ['POST', 'GET'])
 def playlist():
+    """ Playlist creation
+
+    Returns:
+    Executes the function when visited and returns a message
+    confirming that the playlist was created on the user's account.
+
+    """
     Backend.create_playlist()
     return render_template("playlist.html")
 
-# GIVE OUT INFORMATION ABOUT THE BROWSER, QUIZZ
+
+
+
 @app.route("/about")
 def about():
+    """ PROJECT REPORT ON THE BROWSER
+
+    Returns:
+    HTML file, displaying our project report (it can also be found in the github
+    as a seperate .md file)
+
+    """
     return render_template('about.html')
-
-
-
 
 
 

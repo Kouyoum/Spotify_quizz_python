@@ -51,6 +51,3 @@ def authorization():
         print("Can't get token for", username)
 
     return sp, token
-
-# if __name__ = "__main__":
-#     print("authorization")
