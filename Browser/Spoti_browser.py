@@ -22,13 +22,11 @@ from flask_nav import Nav
 from flask_nav.elements import Navbar, Subgroup, View
 
 # Import of our modules
-import Quizz_test
+import Quizz
 import Backend
 import authorization
 
-# cid ="11e754c7548240e7a02e1b59ec07b2f9"
-# secret = "c3922e0fbd1b4c57ba9f0c32366a7fe8"
-# username = "11100731824"
+
 
 #AUTHORIZATION FLOW
 sp, token = authorization.authorization()
@@ -240,5 +238,5 @@ def about():
 
 
 if __name__ == "__main__":
-    # Timer(1, open_browser).start();
+    Timer(1, open_browser).start();
     app.run(port = 5090, debug=True)

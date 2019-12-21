@@ -1,6 +1,7 @@
 # QUIZZ
 # Import of other project files
 import Backend
+import authorization as aut
 
 
 # Other Imports
@@ -11,153 +12,187 @@ import time
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
-import random as random
+import random
 import time as time
+
+# modules for string matching
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
 
 toptrack = Backend.user_top_tracks()
 
 
-def question1():
+# Question 1_a returns the correct genres to the question
+
+def question1_a():
+    """ Find the genres of a track
+
+    Returns:
+    Genres[0]: list of a track's genres (e.g. ['rock', 'hip hop'])
+
+    id: the id of the track (useful to display the spotify player of the track)
+
+    track: track name
+
+    artist: artist name
+    """
     i = random.randint(0, len(toptrack['Track']))
-    song = toptrack['Track'][i]
+    track = toptrack['Track'][i]
     uri = toptrack['URI'][i]
-    artist = toptrack["Artist"][i]
+    id = toptrack['Track ID'][i]
+    artist = toptrack['Artist'][i]
     genres = Backend.artist_api([toptrack['Artist ID'][i]])[
-        'Genres']  # need the album_feature as a list
-    print('--- Q U E S T I O N  1 ---')
-    print("We will start with an easy one. Among your 50 top played tracks, we choose one at random.")
-    print("The random track is: ")
-    print('     ', song, ' ,', artist)
-    print('What is one of the genres of this song ?')
-    sentence = "One of the genre of ", song, " is:"
-    u_input = input(str(sentence))
-    if u_input in str(genres):
-        print('CORRECT')
-        print(genres)
-        # playback10s([uri])
-        return 1
-    else:
-        print("INCORRECT")
-        print(genres)
-        # playback10s([uri])
-        return 0
+        'Genres']
+    # need the album_feature as a list
+    genres_l = (', ').join(genres[0])
+    #genres = genres_series.tolist()
+
+    return genres_l, id, track, artist
+
+
+# Question 1_b returns the ratio of similarity between user input and response
+# This function was not used in the end, as we encountered difficulties using fuzzy
+# with jinja2
+# def question1_b(answers, correct):
+#     """		Compute the ratio of similarity between user's guess and solution
+#
+#      Args:
+#      answers: user answer, string variable
+#
+#      correct: list of correct answers (here the genres of a spotify track)
+#
+#      Returns:
+#      list of ratios of similarity between the user's 3 guesses and the solutions.
+#      """
+#     # Transform user's answer into a list
+#     answers_l = answers.split(',')
+#
+#     # Transform user's answers into a list
+#     ratio = []
+#     for answer in answers_l:
+#         for option in correct:
+#             grade = fuzz.partial_ratio(option, answers_l)
+#             ratio.append(grade)
+#         # if grade > 80:
+#         # 	return "correct"
+#     return ratio
+
 
 
 def question2():
+    # 4 tracks picked randomly out of the user's 50 most heard tracks
+    sample_songs = toptrack.loc[random.sample(
+        range(0, 49), 4), ["Track", "Popularity", "Artist", "Track ID"]]
 
-    return
+    # Obtain the most popular song in from the random sample
+    most_danceable = sample_songs['Track'][sample_songs['Popularity'].idxmax()]
+
+    # Obtain the song's id, for the player to work
+    index = sample_songs.loc[sample_songs['Track'] == most_danceable].index[0]
+    id_mostd = sample_songs['Track ID'][index]
+
+    sample_songs["Popularity"] = pd.to_numeric(sample_songs["Popularity"])
+
+    sample_artists = list(sample_songs['Artist'])
+    sample_names = list(sample_songs['Track'])
+
+    # list of tracks with the artists names
+
+    return sample_names, sample_artists, most_danceable, id_mostd
+
 
 
 def question3():
-    print('')
-    print("")
-    print("")
-    print('--- Q U E S T I O N  2 ---')
-    print("Among those 4 artists, who do you think is the most popular artist on Spotify ?")
+    """
+    QUESTION ON THE ALBUM YEAR
 
-    row = 0
-    top_p = 0
-    for i in range(0, len(toptrack['Artist'])):
-        if int(toptrack['Popularity'][i]) >= top_p:
-            row = i
-            top_p = int(toptrack['Popularity'][i])
-    uri = toptrack['URI'][row]
-    artists = [random.randint(0, 50) for i in range(4)]
-    for i in artists:
-        print(toptrack['Artist'][i])
-    print(toptrack['Artist'][row])
-    u_input = input('The most popular artist is: ')
-    if u_input == toptrack['Artist'][row]:
-        print('CORRECT')
-        print(toptrack['Artist'][row], ' has a popularity of ',
-              toptrack['Popularity'][row])
-        # playback10s([uri])
-        return 1
-    else:
-        print("INCORRECT")
-        print(toptrack['Artist'][row],
-              'is the most popular artist with a popularity of ', toptrack['Popularity'][row])
-        # playback10s([uri])
-        return 0
-    return
+    Picks a random track out of the user's top50
+    and asks when the album including the track was composed.
 
+    Returns:
+    album_name: string variable, name of the album
 
-def question5():
-    print("")
-    print("")
-    print("")
-    print('--- Q U E S T I O N  3 ---')
+    artist name: string variable, name of the artist
+
+    sample_year: list of years (1 correct answer & 3 random years)
+
+    correct year: integer variable, correct year for album composition
+
+    track_id: id of the song, belonging to the album
+    (used for the spotify player later)
+
+    """
     row = random.randint(0, len(toptrack['Track']))
     uri = toptrack['URI'][row]
-    sentence = "In which year was the album ", toptrack['Album Name'][
-        row], ' from ', toptrack['Artist'][row],  ' released ?'
-    u_input = input(str(sentence))
-    if u_input == toptrack['Album Year'][row]:
-        print('CORRECT')
-        print(toptrack['Album Year'][row],
-              ' is the correct year for the album ', toptrack['Album Name'][row])
-        # playback10s([uri])
-        return 1
-    else:
-        print("INCORRECT")
-        print(toptrack['Album Name'][row],
-              ' was released in ', toptrack['Album Year'][row])
-        # playback10s([uri])
-        return 0
+
+    # Get the album, artist name, and track id from the dataframe
+    album_name = toptrack['Album Name'][row]
+    artist_name = toptrack['Artist'][row]
+    track_id = toptrack['Track ID'][row]
+
+    # Set year to integer, to manipulate it
+    correct_year = int(toptrack['Album Year'][row])
+    sample_year = random.sample(range(correct_year-20, 2019), 3)
+
+    sample_year.append(correct_year)
+
+    return album_name, artist_name, sample_year, correct_year, track_id
+
+
+def question4():
+    """
+    QUESTION ON EXPLICIT CONTENT IN SONGS
+
+    Counts the number of tracks with explicit content, from the user's top 50.
+
+    Returns:
+    sample_count: list of 4 integers, 4 options for the multiple choice
+
+    explicit_count: integer, number of explicit songs in the user's top 50
+
+    """
+    # 3 datafframes created: 4 tracks, explicit tracks, implicit
+    explicit_df = toptrack.loc[toptrack["Explicit"] == True]
+    explicit_count = len(explicit_df)
+    sample_count = random.sample(range(0, explicit_count + 5), 3)
+
+    sample_count.append(explicit_count)
+
+    return explicit_count, sample_count
 
 
 def question6():
-    print("")
-    print("")
-    print("")
-    print('--- Q U E S T I O N  4 ---')
-    sentence = "Spotify creates a song characteristic named danceability that quantifies the danceability of the song. Among your top tracks, what is the name of the most danceable ?"
-    # We get the Track ID with the highest level of Danceability.
-    most_danceable_id = Backend.audio_features(
-        toptrack['Track ID']).nlargest(1, "Danceability")['Track ID']
-    # We need to join this Track ID with the track ID of the "tracks" API call in order to get the name of the song
-    most_danceable = pd.merge(most_danceable_id, Backend.tracks(
-        most_danceable_id), left_on='Track ID', right_on='Track ID', how='left')
-    track_name = most_danceable['Track Name'][0]
-
-    for i in range(4):
-        r = random.randint(0, len(toptrack['Track ID']))
-        print(toptrack['Track'][r])
-    print(track_name)
-    u_input = input(str(sentence))
-
-    if u_input == track_name:
-        print('CORRECT')
-        print(track_name, ' is the most danceable')
-        return 1
-    else:
-        print("INCORRECT")
-        print(track_name, 'is the most danceable')
-        return 0
-
-
-q1 = question1()
-# # question2()
-q3 = question3()
-q5 = question5()
-q6 = question6()
-
-correct = q1+q3+q5+q6
-incorrect = 4-correct
-print("")
-print('')
-print('YOU MADE ', incorrect, ' MISTAKES')
-
-# export_csv()
-# create_playlist()
-
-print('THE END')
-
-# #if __name__ = "__main__":
-#
-
-"""
-Add ability to export to csv their private data
-
     """
+    QUESTION ON DANCEABILITY
+
+    Returns:
+    sample_names: list of 4 tracks from the user's top 50, randomly chosen
+
+    most_danceable: string variable, name of the track scoring the
+    highest in terms of danceability
+
+    track_id: id of the most danceable track, used for the spotify player later
+    """
+    Track_id = Backend.audio_features(toptrack['Track ID'])
+    sample_tracks = Track_id.loc[random.sample(range(0, 49), 4), [
+        "Track ID", "Danceability"]]  # 4 random tracks IDs & Danceabilityy
+
+    # We need to join the 2 dataframes in order to get the name of the songs
+    Track_full = pd.merge(sample_tracks, Backend.tracks(
+        sample_tracks["Track ID"]), left_on='Track ID', right_on='Track ID', how='left')
+
+    # new dataframe created, with only 3 columns
+    sample_tracks = Track_full.loc[:, [
+        'Track Name', 'Danceability', 'Track ID']]
+
+    # list of track options names
+    sample_names = list(sample_tracks['Track Name'])
+    most_danceable = sample_tracks['Track Name'][sample_tracks['Danceability'].idxmax(
+    )]
+
+    # obtain the id for the most danceable track
+    track_id = sample_tracks['Track ID'][sample_tracks['Track Name']
+                                         == most_danceable].values[0]
+
+    return sample_names, most_danceable, track_id

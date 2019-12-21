@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444;
-  background-image: url("concert.jpg") !important;
+  /* background-image: url("concert.jpg") !important; */
   background-color: rgb(158, 188, 236);
 }
 
@@ -13,9 +13,9 @@ body {
 }
 
 .navbar{
-  background-color: #cce6ff !important;
+  background-color: #5a94ff !important;
 
-  border-color: #cce6ff !important;
+  border-color: #5a94ff !important;
 }
 
 
