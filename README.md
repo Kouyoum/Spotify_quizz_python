@@ -23,9 +23,9 @@ pip install git+https://github.com/plamere/spotipy.git --upgrade
 	
 #### Running The Code
 You are now ready to run the code. 
--	To launch the quiz you simply need to run the Spoti_browser.py script in the console:
+-	To launch the quiz you simply need to run the Flask_page.py script in the console:
 ```python
-python Spoti_browser.py
+python Flask_page.py
 ```
 - The first message that you will see in the console is the explanation to connect to your Spotify account.
 ```shell
