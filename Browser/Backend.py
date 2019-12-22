@@ -200,15 +200,15 @@ def export_csv():
 ### API CALLS - THE FUNCTION BELOW QUERY SPOTIFY API DO OBTAIN ADDITIONAL
 ### INFORMATION ABOUT THE TRACKS, ALBUMS, ARTISTS, ...
 
+
 def tracks(track_id):
-     """ FIND TRACK NAME FROM ITS ID
+    """FIND TRACK NAME FROM ITS ID
 
      Args:
      track_id: string variable, id of a spotify track
 
      Returns:
-     track: name of the track corresponding to the id
-     """
+     track: name of the track corresponding to the id"""
     result = sp.tracks(track_id)
 
     track_name = []

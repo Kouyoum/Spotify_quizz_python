@@ -74,16 +74,17 @@ def open_browser():
     """
     webbrowser.open_new('http://127.0.0.1:5090/')
 
-""" Count variable set to 0
 
+
+""" Count variable set to 0
     Variable counts the number of correct responses during the quizz"""
 count = 0
 
+
 @app.route("/question1", methods = ['POST', 'GET'])
 def question1():
-    #genre = Quizz.question1()
-    # answers = Backend.get_genres()
-    # #genre_cat = HTML(answers.to_html(classes = 'table table-striped'))
+    """ QUESTION WITH USER INPUT: GUESS THE GENRE """
+    
     correct1, id, track, artist = Quizz.question1_a()
     link = "https://open.spotify.com/embed/track/" + id
     global count
@@ -94,10 +95,14 @@ def question1():
         correct1 = request.form['correct1']
         link = request.form['link']
 
-        correct = list(correct1)
+        correct = correct1.split(',')
 
-        if answer1.lower() in str(correct):
-            count += 1
+        for genre in correct:
+            # fuzz partial ratio computes the ratio of similarity between user input and response
+            ratio = fuzz.partial_ratio(answer1, genre)
+            if ratio > 80:
+                count += 1
+                break
 
         # ratio = Quizz.question1_b(answer1, correct1)
 
