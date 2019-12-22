@@ -41,7 +41,7 @@ def authorization():
     secret = "c3922e0fbd1b4c57ba9f0c32366a7fe8"
     # cid = " 42d0aa9d98ef4d4ba6524cea55bbca52"
     # secret = "3c08275254aa4381be5198e756755211"
-    username = "11670183"
+    username = "1167018"
 
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
