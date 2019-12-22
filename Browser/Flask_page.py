@@ -84,7 +84,7 @@ count = 0
 @app.route("/question1", methods = ['POST', 'GET'])
 def question1():
     """ QUESTION WITH USER INPUT: GUESS THE GENRE """
-    
+
     correct1, id, track, artist = Quizz.question1_a()
     link = "https://open.spotify.com/embed/track/" + id
     global count
@@ -251,5 +251,5 @@ def about():
 
 
 if __name__ == "__main__":
-    #Timer(1, open_browser).start();
+    Timer(1, open_browser).start();
     app.run(port = 5090, debug=True)
