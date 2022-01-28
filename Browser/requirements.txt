@@ -2,7 +2,7 @@ spotipy==2.4.4
 fuzzywuzzy==0.17.0
 pandas==0.25.1
 Flask==1.1.1
-requests==2.13.0
+requests==2.20.0
 flask_nav==0.6
 Flask_Bootstrap==3.3.7.1
 ipython>=7.16.3
